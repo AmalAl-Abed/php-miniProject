@@ -50,7 +50,8 @@
             
             <div class="form-group">
                 <label for="pic">Product Picture: </label>
-                <input type="file" class="form-control" id="pic" name="picture" accept="image/*" required>
+                <input type="file" class="form-control-file" id="pic" name="file" accept="image/*" required>
+                <small>jpg,jpeg,png...</small>
                 
             </div>
 
@@ -80,12 +81,21 @@
             <tbody id="info">
             <?php 
                 
-                if(isset($_POST['add'])){
-                    $_SESSION['name'].=$_POST['pname'].'<br>';
-                    $_SESSION['price'].=$_POST['price'].'<br>';
-                    $_SESSION['desc'].=$_POST['description'].'<br>';
-                    $_SESSION['img'].=$_POST['picture'].'<br>';
-                    echo ('<tr><td>' . $_SESSION['name'] . '</td><td>' . $_SESSION['price'] . '</td><td>' . $_SESSION['desc'] . '</td><td>' . $_SESSION['img']. '</td></tr>');
+                if (isset($_POST['add'])) {
+                    if (!(file_exists("images/" . $_FILES["file"]["name"]))) {
+                        move_uploaded_file($_FILES["file"]["tmp_name"], "images/" . $_FILES["file"]["name"]);
+                    }
+                    $_SESSION['name'] .= $_POST['pname'] . '<br>';
+                    $_SESSION['pricee'] .= $_POST['price'] . '<br>';
+                    $_SESSION['descriptions'] .= $_POST['description'] . '<br>';
+                    $_SESSION['photo'] .= $_FILES["file"]["name"] . '<br>';
+                    $arr1 = explode("<br>", $_SESSION['name']);
+                    $arr2 = explode("<br>", $_SESSION['pricee']);
+                    $arr3 = explode("<br>", $_SESSION['descriptions']);
+                    $arr4 = explode("<br>", $_SESSION['photo']);
+                    for ($i = 0; $i < count($arr1) - 1; $i++) {
+                        echo ('<tr><td>' . $arr1[$i] . '</td><td>' . $arr2[$i] . '</td><td>' . $arr3[$i] . '</td><td><img src="images/' . $arr4[$i] . '" alt="Image" id="pimage"></td></tr><br>');
+                    }
                 }
                 // session_unset();
             ?>

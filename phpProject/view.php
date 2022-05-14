@@ -21,55 +21,72 @@ session_start();
     <link rel="stylesheet" href="viewstyle.css">
   </head>
   <body>
-      
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#" style=" margin-right: 900px; ">HOPE </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div  class="collapse navbar-collapse" id="navbarNavAltMarkup" >
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="view.php">Home <span class="sr-only">(current)</span></a>
-     
-      <a class="nav-item nav-link" href="product.php">Products</a>
-      
+
+<nav class="navbar navbar-expand-sm navbar-light" style="background-color: #d1c093; ">
+
+    <!-- Brand/logo -->
+    <a class="navbar-brand" href="#">
+        <img src="Images/logo.png" alt="logo" id="logo">
+    </a>
+    <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#coll" style="border-color: white;">
+        <span class="navbar-toggler-icon navbar-light" style="background-color: white;"></span>
+    </button>
+
+    <!-- Links -->
+    <div class=" navbar-collapse collapse" id="coll">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" style="color: white; font-weight: bold; font-size: 17px;">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="view-products-page.php" style="color: white; font-weight: bold; font-size: 17px;">Products</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color: white; font-weight: bold; font-size: 17px;">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color: white; font-weight: bold; font-size: 17px;">Contact</a>
+            </li>
+        </ul>
     </div>
-  </div>
 </nav>
 
 
+<!-- PHP -->
 <div class="container d-flex justify-content-center mt-50 mb-50">
     <div class="row">
         <?php
-    
-    if(!empty($_SESSION['name']) || !empty($_SESSION['price']) || !empty($_SESSION['desc'])){
-    
-        $arr1=explode("<br>",$_SESSION['name']);
-        $arr2=explode("<br>",$_SESSION['price']);
-        $arr3=explode("<br>",$_SESSION['desc']);
-        $arr4=explode("<br>",$_SESSION['img']);
-    for($i=0; $i<count($arr1)-1; $i++){
-        echo ('<div class="col-md-4 mt-2">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-img-actions"> <img src="../images/vpavic_211006_4796_0061.jpg" class="card-img img-fluid" width="96" height="350" alt="Image"> </div>
-            </div>
-            <div class="card-body bg-light text-center">
-                <div class="mb-2">
-                    <h5 class="font-weight-semibold mb-2" style="color:#80765c;">' . $arr1[$i] . '</h5><p class="text-muted" data-abc="true">' . $arr3[$i] . '</p>
+
+        if (!empty($_SESSION['name']) && !empty($_SESSION['pricee']) && !empty($_SESSION['descriptions'])) {
+            $_SESSION['name'];
+            $_SESSION['pricee'];
+            $_SESSION['descriptions'];
+            $_SESSION['photo'];
+            $arr1 = explode("<br>", $_SESSION['name']);
+            $arr2 = explode("<br>", $_SESSION['pricee']);
+            $arr3 = explode("<br>", $_SESSION['descriptions']);
+            $arr4 = explode("<br>", $_SESSION['photo']);
+            for ($i = 0; $i < count($arr1) - 1; $i++) {
+                echo ('<div class="col-md-4 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-img-actions"> <img src="images/'.$arr4[$i].'" class="card-img img-fluid" alt="Image" id="pimage"> </div>
                     </div>
-                    <h4 class="mb-0 font-weight-semibold">$' . $arr2[$i] . '</h4>
-                    <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i></div>
-                    <div class="text-muted mb-3"></div> <button type="button"  class="btn bg-cart btn-primary"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                    <div class="card-body bg-light text-center">
+                        <div class="mb-2">
+                            <h5 class="font-weight-semibold mb-2" style="color:#80765c;">' . $arr1[$i] . '</h5><p class="text-muted" data-abc="true">' . $arr3[$i] . '</p>
+                        </div>
+                        <h4 class="mb-0 font-weight-semibold">$' . $arr2[$i] . '</h4>
+                        <div> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i class="fa fa-star star"></i></div>
+                        <div class="text-muted mb-3"></div> <button type="button"  class="btn bg-cart btn-primary"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                    </div>
                 </div>
-            </div>
-        </div>');
-    }
-}
-else{
-    echo('<div class="container" id="error"> <h2>There are no products to display!!! </h2></div>');
-}
-    ?>
+            </div>');
+            }
+        } else {
+            echo ('<div class="container" id="error"> <h2>There are no products to display!!! </h2></div>');
+        }
+        ?>
     </div>
 </div>
 
